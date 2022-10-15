@@ -8,38 +8,61 @@
     <title>Carrito de Compras</title>
 </head>
 <body>
+    <header>
+        <h1>Ecommerce</h1>
+        <a class="shop-cart" href="#"><img src="./img/carrito.svg" alt="cart-shopping"></a>
+    </header>
+    <div class="darken inactive"></div>
+    <div class="div-margin">
     
-    <div>
-        <h1>Productos</h1>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
+        <div class="div-productos">
+            <h2>Productos</h2>
+            <div class="container-productos">
+        
+                
+            </div>
+            
         </div>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
-        </div>
-        <div>
-            <img src="" alt="">
-            <h2></h2>
-        </div>
-    </div>
-    <div>
-        <h2>
-            Carrito de Compras
-        </h2>
+
+        <aside id="productDetail" class="inactive">
+            <div class="product-detail-close">
+              <img src="./icon/icon_close.png" alt="close">
+            </div>
+            <img class="imgProductDetail" alt="bike">
+            <div class="product-info">
+              <p class="priceProductDetail"></p>
+              <p class="nameProductDetail"></p>
+              <p class="descriptionProductDetail"></p>
+              <button class="primary-button add-to-cart-button">
+                <img class="add-cart" src="./icon/bt_add_to_cart.svg" alt="add to cart">
+                Add to cart
+              </button>
+            </div>
+        </aside>
+
+        <aside id="shoppingCartContainer" class="inactive">
+            <div class="title-container">
+              <img class="arrow" src="./icon/flechita.svg" alt="arrow">
+              <p class="title">My order</p>
+            </div>
+        
+            <div class="my-order-content">
+              
+        
+            </div>
+
+            <div class="order">
+                <p>
+                  <span>Total</span>
+                </p>
+                <p class="totalPrice">$560.00</p>
+              </div>
+        
+              <button class="primary-button">
+                Checkout
+              </button>
+          </div>
+          </aside>
     </div>
 
 
