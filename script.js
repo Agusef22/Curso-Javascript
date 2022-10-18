@@ -11,8 +11,13 @@ const imageProductDetail = document.querySelector(".imgProductDetail");
 const priceProduct = document.querySelector(".priceProductDetail");
 const nameProduct = document.querySelector(".nameProductDetail");
 const descriptionProduct = document.querySelector(".descriptionProductDetail");
+const countCart = document.querySelector(".count-cart");
 
-
+darken.addEventListener("click", () => {
+    darken.classList.add("inactive");
+    productDetail.classList.add("inactive");
+    order.classList.add("inactive");
+})
 
 cart.addEventListener("click", () => {
     const isProductDetailOpen = !productDetail.classList.contains("inactive");
@@ -40,9 +45,6 @@ iconProductClose.addEventListener("click", () => {
 });
 
 const orderList = [];
-
-
-    
 
 /* 
 <div class="container-productos">
@@ -91,7 +93,6 @@ productList.forEach((product) => {
                 const item = productList.find((prod) => prod.id === prodId)
                 orderList.push(item)
                 uploadCart()
-                console.log(orderList)
             }
             agregarCarrito(product.id)
         })
@@ -135,6 +136,18 @@ const uploadCart = () => {
         const icon = document.createElement("img");
         icon.src = "./icon/icon_close.png";
         icon.classList.add("iconClose");
+        icon.addEventListener("click", () => {
+            const sacarCarrito = (prodId) => {
+                const item = productList.find((prod) => prod.id === prodId)
+                const indice = orderList.indexOf(item)
+                orderList.splice(indice,1)
+                uploadCart()
+                renderOrderPrice(orderList)
+            }
+            sacarCarrito(product.id)
+        })
+        
+        countCart.innerText = orderList.length
 
         figure.appendChild(imageProduct);
         shoppingCart.appendChild(figure);
@@ -151,5 +164,10 @@ const uploadCart = () => {
 const renderOrderPrice = (arr) => {
     const sum = arr.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
     totalPrice.innerText = "$" + sum;
+    countCart.innerText = orderList.length
 };
+
+
+
+
 

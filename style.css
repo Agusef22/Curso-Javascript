@@ -57,6 +57,11 @@ header img {
     width: 2em;
 }
 
+.count-cart {
+  position: absolute;
+  right: 45px;
+}
+
 .mac-image {
     height: 8em;
     width: 11em;
