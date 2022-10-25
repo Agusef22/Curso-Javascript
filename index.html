@@ -17,7 +17,7 @@
     <div class="div-margin">
     
         <div class="div-productos">
-            <h2>Productos</h2>
+            <h2 class="titulo-productos">Productos</h2>
             <div class="container-productos">
         
                 
@@ -43,8 +43,13 @@
 
         <aside id="shoppingCartContainer" class="inactive">
             <div class="title-container">
-              <img class="arrow" src="./icon/flechita.svg" alt="arrow">
-              <p class="title">My order</p>
+              <div>
+                <img class="arrow" src="./icon/flechita.svg" alt="arrow">
+                <p class="title">My order</p>
+              </div>
+              <div>
+                <button class="delete-cart">Empty Cart</button>
+              </div>
             </div>
         
             <div class="my-order-content">
@@ -65,7 +70,44 @@
           </div>
           </aside>
     </div>
+    <!-- <div class="login">
+      <div class="form-container">
 
+        <form action="/" class="form">
+          <label for="email" class="label">Email address</label>
+          <input type="text" id="email" placeholder="gmail@example.cm" class="input input-email">
+  
+          <label for="password" class="label">Password</label>
+          <input type="password" id="password" placeholder="*********" class="input input-password">
+  
+          <input type="submit" value="Log in" class="primary-button login-button">
+          <a href="/">Forgot my password</a>
+        </form>
+  
+        <button class="secondary-button signup-button">Sign up</button>
+      </div>
+    </div>
+    <div class="register">
+      <div class="form-container-register">
+        <h1 class="title">My account</h1>
+  
+        <form action="/" class="form">
+          <div>
+            <label for="name" class="label">Name</label>
+            <input type="text" id="name-register" placeholder="Teff" class="input input-name">
+  
+            <label for="email" class="label">Email</label>
+            <input type="text" id="email-register" placeholder="platzi@example.com" class="input input-email">
+  
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password-register" placeholder="*********" class="input input-password">
+          </div>
+  
+          <input type="submit" value="Create" class="primary-button-register login-button">
+        </form>
+      </div>
+    </div> -->
+    <script src="./localStorage.js"></script>
     <script src="./stock.js"></script>
     <script src="./script.js"></script>
 </body>

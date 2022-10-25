@@ -12,6 +12,7 @@ const priceProduct = document.querySelector(".priceProductDetail");
 const nameProduct = document.querySelector(".nameProductDetail");
 const descriptionProduct = document.querySelector(".descriptionProductDetail");
 const countCart = document.querySelector(".count-cart");
+const deleteCart = document.querySelector(".delete-cart");
 
 darken.addEventListener("click", () => {
     darken.classList.add("inactive");
@@ -44,7 +45,7 @@ iconProductClose.addEventListener("click", () => {
     productDetail.classList.toggle("inactive");
 });
 
-const orderList = [];
+let orderList = [];
 
 /* 
 <div class="container-productos">
@@ -89,12 +90,28 @@ productList.forEach((product) => {
         button.id = product.id
 
         button.addEventListener("click", () => {
+            const aux = product.price;
             const agregarCarrito = (prodId) => {
-                const item = productList.find((prod) => prod.id === prodId)
-                orderList.push(item)
-                uploadCart()
+                const existe = orderList.some(prod => prod.id === prodId)
+                if (existe) {
+                    const produ = orderList.map(prod => {
+                        if (prod.id === prodId) {
+                            prod.cant++
+                            
+                        }
+                    })
+                } else {
+                    const item = productList.find((prod) => prod.id === prodId)
+                    orderList.push(item)
+                }
+
+                
+                
             }
+            
             agregarCarrito(product.id)
+            uploadCart()
+            
         })
         
 
@@ -111,6 +128,7 @@ productList.forEach((product) => {
     <img src="./img/auris.jpg" alt="bike">
 </figure>
 <p>Auris</p>
+<p>Cantidad:</p>
 <p>$30,00</p>
 <img src="./icon/icon_close.png" alt="close"></img>
 */
@@ -130,6 +148,9 @@ const uploadCart = () => {
         const nameProduct = document.createElement("p");
         nameProduct.innerText = product.name;
 
+        const cantProduct = document.createElement("p");
+        cantProduct.innerText = "Cantidad:" + product.cant
+
         const priceProduct = document.createElement("p");
         priceProduct.innerText = "$" + product.price;
 
@@ -143,9 +164,20 @@ const uploadCart = () => {
                 orderList.splice(indice,1)
                 uploadCart()
                 renderOrderPrice(orderList)
+                
             }
+            product.cant = 1;
             sacarCarrito(product.id)
+            
         })
+
+        deleteCart.addEventListener("click", () => {
+            orderList = []
+            uploadCart()
+            renderOrderPrice()
+            product.cant = 1
+        })
+        
         
         countCart.innerText = orderList.length
 
@@ -153,6 +185,7 @@ const uploadCart = () => {
         shoppingCart.appendChild(figure);
         shoppingCart.appendChild(nameProduct);
         shoppingCart.appendChild(priceProduct);
+        shoppingCart.appendChild(cantProduct);
         shoppingCart.appendChild(icon);
         orderContent.appendChild(shoppingCart);
         renderOrderPrice(orderList)
@@ -162,10 +195,20 @@ const uploadCart = () => {
 }
 
 const renderOrderPrice = (arr) => {
-    const sum = arr.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
-    totalPrice.innerText = "$" + sum;
+    totalPrice.innerText = "$" + orderList.reduce((acc,prod) => acc + prod.cant * prod.price, 0);
     countCart.innerText = orderList.length
+    
 };
+
+
+
+
+
+
+    
+
+
+
 
 
 

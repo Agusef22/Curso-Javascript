@@ -27,9 +27,11 @@ body {
 
 .darken {
     width: 100%;
-	height: 100%;
-	position: absolute;
-	background-color: rgba(0, 0, 0, 0.5);
+	  height: 1450px;
+	  position: absolute;
+	  background-color: rgba(0, 0, 0, 0.5);
+    
+
 }
 
 img {
@@ -52,6 +54,12 @@ header {
     padding: 1em 0 1em 0;
 }
 
+header h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.8em;
+}
+
 header img {
     height: 2em;
     width: 2em;
@@ -63,8 +71,8 @@ header img {
 }
 
 .mac-image {
-    height: 8em;
-    width: 11em;
+    height: 240px;
+    width: 240px;
     border-radius: 0.5em;
     object-fit: cover;
 }
@@ -75,6 +83,12 @@ header img {
     gap: 2em;
     padding-bottom: 1em;
     padding-top: 1em;
+}
+
+.titulo-productos {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 300;
+  font-size: 1.5em;
 }
 
 .container-productos {
@@ -94,20 +108,19 @@ header img {
     display: flex;
     flex-direction: column;
     gap: 0.8em;
-    border: solid 1px black;
-    border-radius: 1em;
     padding: 1em;
 }
 
-.container-info-product a {
-    text-decoration: none;
-    color: white;
-    background-color: lightblue;
-    border: solid 1px transparent;
-    border-radius: 1em;
-    width: 5em;
-    text-align: center;
-    padding: 0.2em;
+.container-info-product button {
+  background-color: lightblue;
+  border-radius: 8px;
+  border: none;
+  color: var(--white);
+  width: 100%;
+  cursor: pointer;
+  font-size: var(--md);
+  font-weight: bold;
+  height: 40px;
 }
 
 aside {
@@ -126,10 +139,37 @@ aside {
     border-radius: 10px;
   }
 
+  .cant-product-text {
+    position: absolute;
+    bottom: 150px;
+    right: 49px;
+    font-family: auto;
+    font-size: small;
+  }
   .title-container {
     display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .title-container div{
+    display: flex;
+    align-items: baseline;
     padding-bottom: 15px;
   }
+
+  .delete-cart {
+    background-color: lightblue;
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    width: 100%;
+    padding: 0.5em 0.5em;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 35px;
+  }
+
   .title-container img {
     transform: rotate(180deg);
     margin-right: 14px;
@@ -170,18 +210,23 @@ aside {
     font-weight: bold;
   }
   .shopping-cart {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    display: flex;
     gap: 16px;
     margin-bottom: 24px;
     align-items: center;
   }
+
+  .shopping-cart p {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  
   .shopping-cart figure {
     margin: 0;
   }
   .shopping-cart figure img {
-    width: 70px;
-    height: 70px;
+    min-width: 45px;
+    height: 52px;
     border-radius: 20px;
     object-fit: cover;
   }
@@ -264,4 +309,136 @@ aside {
 
   .add-cart {
     filter: hue-rotate(90deg);
+  }
+
+  .login {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 0;
+    background-color: #FFFFFF;
+  }
+  .form-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 300px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form a {
+    color: lightblue;
+    font-size: var(--sm);
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 52px;
+  }
+  .label {
+    font-size: var(--sm);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .input {
+    background-color: var(--text-input-field);
+    border: none;
+    border-radius: 8px;
+    height: 30px;
+    font-size: var(--md);
+    padding: 6px;
+    margin-bottom: 12px;
+  }
+  .input-email {
+    margin-bottom: 22px;
+  }
+  .primary-button {
+    background-color: lightblue;
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    width: 100%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 50px;
+  }
+  .secondary-button {
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid lightblue;
+    color: lightblue;
+    width: 100%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 50px;
+  }
+  .login-button {
+    margin-top: 14px;
+    margin-bottom: 30px;
+  }
+
+  .register {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 0;
+    background-color: #FFFFFF;
+  }
+  .form-container-register {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 300px;
+  }
+  .title {
+    font-size: var(--lg);
+    margin-bottom: 36px;
+    text-align: start;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form div {
+    display: flex;
+    flex-direction: column;
+  }
+  .label {
+    font-size: var(--sm);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .input {
+    background-color: var(--text-input-field);
+    border: none;
+    border-radius: 8px;
+    height: 30px;
+    font-size: var(--md);
+    padding: 6px;
+    margin-bottom: 12px;
+  }
+  .input-name-register,
+  .input-email-register,
+  .input-password-register {
+    margin-bottom: 22px;
+  }
+  .primary-button-register {
+    background-color: lightblue;
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    width: 100%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 50px;
+  }
+  .login-button {
+    margin-top: 14px;
+    margin-bottom: 30px;
   }
