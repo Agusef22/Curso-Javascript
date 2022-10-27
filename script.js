@@ -13,6 +13,7 @@ const nameProduct = document.querySelector(".nameProductDetail");
 const descriptionProduct = document.querySelector(".descriptionProductDetail");
 const countCart = document.querySelector(".count-cart");
 const deleteCart = document.querySelector(".delete-cart");
+const proceedToPay = document.querySelector(".primary-button");
 
 darken.addEventListener("click", () => {
     darken.classList.add("inactive");
@@ -47,6 +48,11 @@ iconProductClose.addEventListener("click", () => {
 
 let orderList = [];
 
+
+document.addEventListener("DOMContentLoaded", () => {
+    orderList = JSON.parse(localStorage.getItem("cart")) || []
+    uploadCart()
+})
 /* 
 <div class="container-productos">
     <div class="container-info-product">
@@ -104,22 +110,22 @@ productList.forEach((product) => {
                     const item = productList.find((prod) => prod.id === prodId)
                     orderList.push(item)
                 }
-
-                
                 
             }
             
             agregarCarrito(product.id)
             uploadCart()
+            guardarStorage()
+            
             
         })
         
-
         infoProduct.appendChild(productImg);
         infoProduct.appendChild(titleProduct);
         infoProduct.appendChild(productPrice);
         infoProduct.appendChild(button);
         products.appendChild(infoProduct)
+        
         
 });
 
@@ -168,6 +174,7 @@ const uploadCart = () => {
             }
             product.cant = 1;
             sacarCarrito(product.id)
+            sacarStorage(product.id)
             
         })
 
@@ -176,8 +183,8 @@ const uploadCart = () => {
             uploadCart()
             renderOrderPrice()
             product.cant = 1
+            localStorage.clear()
         })
-        
         
         countCart.innerText = orderList.length
 
@@ -190,9 +197,10 @@ const uploadCart = () => {
         orderContent.appendChild(shoppingCart);
         renderOrderPrice(orderList)
 
-
 });
+
 }
+
 
 const renderOrderPrice = (arr) => {
     totalPrice.innerText = "$" + orderList.reduce((acc,prod) => acc + prod.cant * prod.price, 0);
@@ -200,17 +208,15 @@ const renderOrderPrice = (arr) => {
     
 };
 
+function guardarStorage() {
+    localStorage.setItem("cart", JSON.stringify(orderList))
+    console.log(localStorage)
+}
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
+function sacarStorage(prodId) {
+    const local = localStorage.getItem("cart", JSON.stringify(orderList))
+    let localArray = JSON.parse(local)
+    let filtrados = localArray.filter((prod) => prod.id != prodId)
+    localArray = filtrados
+    localStorage.setItem("cart", JSON.stringify(localArray))
+}

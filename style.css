@@ -17,7 +17,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #F7F7F7;
+    background-color: #f7f7f7a9;
 
 }
 
@@ -27,7 +27,7 @@ body {
 
 .darken {
     width: 100%;
-	  height: 1450px;
+	  height: 1200px;
 	  position: absolute;
 	  background-color: rgba(0, 0, 0, 0.5);
     
@@ -75,6 +75,7 @@ header img {
     width: 240px;
     border-radius: 0.5em;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .div-productos {
@@ -92,11 +93,12 @@ header img {
 }
 
 .container-productos {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 6em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 265px);
+  gap: 26px;
+  place-content: center;
+  margin-top: 20px;
+    
 }
 
 .title-product {
@@ -109,6 +111,9 @@ header img {
     flex-direction: column;
     gap: 0.8em;
     padding: 1em;
+    border-radius: 1em;
+    background-color: white;
+
 }
 
 .container-info-product button {
@@ -127,7 +132,7 @@ aside {
     background-color: var(--white);
     width: 360px;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     top: 120px;
     right: 50%;
     transform: translate(50%, 0);
@@ -259,6 +264,9 @@ aside {
     z-index: 2;
     padding: 12px;
     border-radius: 50%;
+  }
+  .product-detail-close img {
+    filter: contrast(100%), invert(100%);
   }
   .product-detail-close:hover {
     cursor: pointer;
