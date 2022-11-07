@@ -52,6 +52,9 @@ header {
     width: 95%;
     max-width: 1320px;
     padding: 1em 0 1em 0;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 
 header h1 {

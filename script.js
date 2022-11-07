@@ -3,7 +3,7 @@ const order= document.querySelector("#shoppingCartContainer");
 const arrow = document.querySelector(".arrow");
 const productDetail = document.querySelector("#productDetail");
 const iconProductClose = document.querySelector(".product-detail-close");
-const products = document.querySelector(".container-productos");
+const productsContainer = document.querySelector(".container-productos");
 const orderContent = document.querySelector(".my-order-content");
 const totalPrice = document.querySelector(".totalPrice");
 const darken = document.querySelector(".darken");
@@ -13,7 +13,7 @@ const nameProduct = document.querySelector(".nameProductDetail");
 const descriptionProduct = document.querySelector(".descriptionProductDetail");
 const countCart = document.querySelector(".count-cart");
 const deleteCart = document.querySelector(".delete-cart");
-const proceedToPay = document.querySelector(".primary-button");
+const proceedToPay = document.querySelector("#button-pay");
 
 darken.addEventListener("click", () => {
     darken.classList.add("inactive");
@@ -63,71 +63,84 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 </div> 
 */
+let productosList = []
 
-productList.forEach((product) => {
+async function getProducts() {
+    const { data } = await api('v1/products?offset=5&limit=20');
+
+    const products = data;
+    // Agrego cant a la lista de los productos de la api
+    products.forEach((product) => {
+        productosList.push({cant:1, id: product.id, price: product.price, description: product.description, title: product.title, images: product.images})
+
+});
+
+productosList.forEach((product) => {
     
-        const infoProduct = document.createElement("div");
-        infoProduct.classList.add("container-info-product");
+    const infoProduct = document.createElement("div");
+    infoProduct.classList.add("container-info-product");
 
-        const productImg = document.createElement("img");
+    const productImg = document.createElement("img");
 
-        productImg.setAttribute("src", product.image);
-        productImg.classList.add("mac-image");
-        productImg.addEventListener("click", () => {
-            imageProductDetail.src = product.image;
-            priceProduct.innerText = "$" + product.price;
-            nameProduct.innerText = product.name;
-            descriptionProduct.innerText = product.description;
+    productImg.setAttribute("src", product.images[1]);
+    productImg.classList.add("mac-image");
+    productImg.addEventListener("click", () => {
+        imageProductDetail.src = product.images[1];
+        priceProduct.innerText = "$" + product.price;
+        nameProduct.innerText = product.title;
+        descriptionProduct.innerText = product.description;
 
-            darken.classList.toggle("inactive");
-            productDetail.classList.toggle("inactive");
-        });
-        
+        darken.classList.toggle("inactive");
+        productDetail.classList.toggle("inactive");
+    });
+    
 
-        const titleProduct = document.createElement("h2");
-        titleProduct.innerText = product.name;
-        titleProduct.classList.add("title-product");
+    const titleProduct = document.createElement("h2");
+    titleProduct.innerText = product.title;
+    titleProduct.classList.add("title-product");
 
-        const productPrice = document.createElement("span");
-        productPrice.innerText = "$" + product.price;
+    const productPrice = document.createElement("span");
+    productPrice.innerText = "$" + product.price;
 
-        const button = document.createElement("button");
-        button.innerText = "Agregar";
-        button.id = product.id
-
-        button.addEventListener("click", () => {
-            const aux = product.price;
-            const agregarCarrito = (prodId) => {
-                const existe = orderList.some(prod => prod.id === prodId)
-                if (existe) {
-                    const produ = orderList.map(prod => {
-                        if (prod.id === prodId) {
-                            prod.cant++
-                            
-                        }
-                    })
-                } else {
-                    const item = productList.find((prod) => prod.id === prodId)
-                    orderList.push(item)
-                }
-                
+    const button = document.createElement("button");
+    button.innerText = "Agregar";
+    button.id = product.id
+    
+    button.addEventListener("click", () => {
+        const aux = product.price;
+        const agregarCarrito = (prodId) => {
+            const existe = orderList.some(prod => prod.id === prodId)
+            if (existe) {
+                const produ = orderList.map(prod => {
+                    if (prod.id === prodId) {
+                        prod.cant++
+                        
+                    }
+                })
+            } else {
+                const item = productosList.find((prod) => prod.id === prodId)
+                orderList.push(item)    
             }
             
-            agregarCarrito(product.id)
-            uploadCart()
-            guardarStorage()
-            
-            
-        })
+        }
         
-        infoProduct.appendChild(productImg);
-        infoProduct.appendChild(titleProduct);
-        infoProduct.appendChild(productPrice);
-        infoProduct.appendChild(button);
-        products.appendChild(infoProduct)
+        agregarCarrito(product.id)
+        uploadCart()
+        guardarStorage()
         
         
+    })
+    
+    infoProduct.appendChild(productImg);
+    infoProduct.appendChild(titleProduct);
+    infoProduct.appendChild(productPrice);
+    infoProduct.appendChild(button);
+    productsContainer.appendChild(infoProduct)
 });
+    
+}
+getProducts()
+
 
 /* 
 <figure>
@@ -139,20 +152,21 @@ productList.forEach((product) => {
 <img src="./icon/icon_close.png" alt="close"></img>
 */
 
-const uploadCart = () => {
+function uploadCart() {
     orderContent.innerHTML = "";
 
     orderList.forEach((product) => {
+        
         const shoppingCart = document.createElement("div");
         shoppingCart.classList.add("shopping-cart");
 
         const figure = document.createElement("figure");
 
         const imageProduct = document.createElement("img");
-        imageProduct.setAttribute("src", product.image);
+        imageProduct.setAttribute("src", product.images[1]);
 
         const nameProduct = document.createElement("p");
-        nameProduct.innerText = product.name;
+        nameProduct.innerText = product.title;
 
         const cantProduct = document.createElement("p");
         cantProduct.innerText = "Cantidad:" + product.cant
@@ -165,7 +179,7 @@ const uploadCart = () => {
         icon.classList.add("iconClose");
         icon.addEventListener("click", () => {
             const sacarCarrito = (prodId) => {
-                const item = productList.find((prod) => prod.id === prodId)
+                const item = orderList.find((prod) => prod.id === prodId)
                 const indice = orderList.indexOf(item)
                 orderList.splice(indice,1)
                 uploadCart()
@@ -220,3 +234,6 @@ function sacarStorage(prodId) {
     localArray = filtrados
     localStorage.setItem("cart", JSON.stringify(localArray))
 }
+
+
+
